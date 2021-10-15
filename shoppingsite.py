@@ -59,7 +59,21 @@ def show_melon(melon_id):
 @app.route("/cart")
 def show_shopping_cart():
     """Display content of shopping cart."""
-
+    # melon_id = melons.get(melon_id)
+    # price = melons.get(price)
+    # common_name = melons.get(common_name)
+    update_cart = session['cart']
+    print(f"We are in the {update_cart}")
+    list_objects = []
+    total_order_cost = 0
+    for key, value in update_cart.items():
+        melon_object = {key}
+        melon_qty = {value}
+        print(melon_qty)
+        melon_cost = melon.price * melon_qty
+        total_order_cost = total_order_cost.append(melon_cost)
+        list_objects.add(melon_object)
+        print(key)
     # TODO: Display the contents of the shopping cart.
 
     # The logic here will be something like:
@@ -92,7 +106,7 @@ def add_to_cart(melon_id):
 
     # TODO: Finish shopping cart functionality
     melon = melons.get_by_id(melon_id)
-    session["cart"]
+    # session["cart"]
     cart = session['cart']
     count = 0
     # The logic here should be something like:
@@ -105,15 +119,15 @@ def add_to_cart(melon_id):
     # - redirect the user to the cart page
     if 'cart' in session:
         cart[melon_id] = count  + 1
-        print(cart)
+        # print(cart)
         flash('Melon successfully added to cart')
-        return render_template("/cart.html", cart = cart, melon=melon)
+        return redirect("/cart")
     else:
         session["cart"]  = {}
         cart[melon_id] = count + 1
-        flash('Melon')
+        flash('Melon successfully added to cart')
         print(cart)
-        return redirect("/cart.html", cart = cart, melon=melon)
+        return redirect("/cart")
 
 
 
